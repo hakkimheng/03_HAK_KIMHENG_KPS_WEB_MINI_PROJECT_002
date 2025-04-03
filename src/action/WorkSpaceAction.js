@@ -1,6 +1,6 @@
 "use server";
 
-import { CreateTaskService, DeleteTaskService, getAllTaskService , getAllWorkspaceService, InsertWorkSpaceService, UpdateTaskService, UpdateWorkSpaceService } from "@/service/service";
+import { CreateTaskService, DeleteTaskService, getAllTaskService , getAllWorkspaceService, InsertWorkSpaceService, UpdateStatusTaskService, UpdateTaskService, UpdateWorkSpaceService } from "@/service/service";
 import { revalidateTag } from "next/cache";
 
 export const getAllWorkSpaceAction = async () => {
@@ -31,13 +31,8 @@ export const UpdateWorkSpaceAction = async (workspace, id) => {
     return { success: true, data: newWorkspace };
 }
 
-export const UpdateFavoriteAction = async (body ,workId ,favorite) =>{
-    const workspaces = {
-        "workspaceId": workId,
-        "workspaceName": body.workspaceName,
-        "isFavorite": favorite,
-    }
-    const newFavorite = await UpdateFavoriteService(workspaces);
+export const UpdateFavoriteAction = async (workId ,favorite) =>{
+    const newFavorite = await UpdateFavoriteService(workId,favorite);
     revalidateTag("getallworkspace");
     return { success: true, data: newFavorite };
 }

@@ -61,13 +61,12 @@ export const UpdateWorkSpaceService = async (workspace,workId) =>{
  }
 }
 
-export const UpdateFavoriteService = async (body) =>{
+export const UpdateFavoriteService = async (workspaceId, isFavorite) =>{
   const header = await headerToken();
   try {
-   const res = await fetch(`${baseUrl}/workspace/${body.workspaceId}?${body.isFavorite}`, {
+   const res = await fetch(`${baseUrl}/workspace/${workspaceId}/favorite?favorite=${isFavorite}`, {
      method: "PATCH",
      headers: header,
-     body: JSON.stringify({body})
    });
    const data = await res.json();
    return data;
@@ -127,6 +126,6 @@ export const UpdateTaskService = async (body, taskId, workId) =>{
    const data = await res.json();
    return data;
   }catch(e){
-   console.log("Error : ", e);
+    
   }
 }

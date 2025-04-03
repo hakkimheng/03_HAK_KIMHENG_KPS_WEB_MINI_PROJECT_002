@@ -15,7 +15,7 @@ import { UpdateStatusTaskAction } from "@/action/WorkSpaceAction";
     const pathname = usePathname();
     const workspaceId = pathname.split('/')[2];
     const [status, setStatus] = useState(task.status);
-    
+
     const handleStatusChange = async (newStatus) => {
       setStatus(newStatus);
       await UpdateStatusTaskAction(newStatus, task.taskId , workspaceId);
@@ -54,7 +54,7 @@ import { UpdateStatusTaskAction } from "@/action/WorkSpaceAction";
           </div>
       
           {/* progress */}
-          <div className="flex justify-between items-center border-t border-t-gray-300 p-5">
+          <div className="flex justify-between items-center border-t  border-t-gray-300 p-5">
       <Select value={status} onValueChange={handleStatusChange}> {/* Handle status change */}
         <SelectTrigger
           className={`w-38 truncate 

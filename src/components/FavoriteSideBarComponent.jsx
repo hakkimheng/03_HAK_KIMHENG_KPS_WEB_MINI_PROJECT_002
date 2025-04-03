@@ -6,8 +6,7 @@ import React from 'react'
 function FavoriteSideBarComponent() {
     const pathname = usePathname();
     const workspaceId = pathname.split('/')[2];
-    const searchParams = useSearchParams();
-    const initialFavorite = searchParams.get("favorite") === "true";
+    
     
     const data = async () =>{
         const {workspace} = await UpdateFavoriteAction(workspaceId, initialFavorite);

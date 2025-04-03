@@ -6,9 +6,11 @@ import { getAllWorkSpaceAction } from "@/action/WorkSpaceAction";
 import { ModalUpdateWorkSpaceComponent } from "./ModalUpdateWorkSpaceComponent";
 import Link from "next/link";
 import FavoriteSideBarComponent from "./FavoriteSideBarComponent";
+import LogoComponent from "./LogoComponent";
+import LogoutButton from "./LogOutButton";
 async function SideBarComponent() {
 
-      const { workspace }  = await getAllWorkSpaceAction();
+  const { workspace } = await getAllWorkSpaceAction();
 
   const getRandomColor = () => {
     const colors = ["#FF5733", "#3366FF", "#33CC99", "#9966CC", "#FFD700"];
@@ -17,12 +19,12 @@ async function SideBarComponent() {
   return (
     <>
       <section className="flex flex-col w-50 gap-8">
-      <div className="flex justify-between">
-            <h2 className="font-bold text-[#94A3B8] text-xl">Workspace</h2>
-                <ModalCreateWorkSpaceComponent />
-          </div>
+        <div className="flex justify-between">
+          <h2 className="font-bold text-[#94A3B8] text-xl">Workspace</h2>
+          <ModalCreateWorkSpaceComponent />
+        </div>
         <section className="flex flex-col gap-4 h-60 overflow-scroll">
- 
+
           {workspace.map((workspace, index) => {
             return (
               <div className="flex justify-between" key={index} >
@@ -41,17 +43,21 @@ async function SideBarComponent() {
 
                 </Link>
                 <button>
-                <ModalUpdateWorkSpaceComponent
-                workId={workspace.workspaceId}
-                />
+                  <ModalUpdateWorkSpaceComponent
+                    workId={workspace.workspaceId}
+                  />
                 </button>
-               
+
               </div>
             );
           })}
         </section>
-          <FavoriteSideBarComponent
-          />
+        <FavoriteSideBarComponent
+        />
+        <div  className= "fixed bottom-10">
+        <LogoutButton/>
+        </div>
+       
       </section>
     </>
   );

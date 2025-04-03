@@ -1,14 +1,14 @@
 "use client";
-import { usePathname, useRouter } from "next/navigation";
+import { UpdateFavoriteAction } from "@/action/WorkSpaceAction";
+import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 
 function FavoriteComponent() {
   const [isFavorite, setIsFavorite] = useState(false);
-  const router = useRouter();
   const pathname = usePathname();
-  const handleClick = () => {
+  const handleClick = async () => {
     setIsFavorite((prev) => !prev);
-    router.push(`${pathname}?favorite=${!isFavorite}`);
+    const fav = await UpdateFavoriteAction()
   };
 
   return (
