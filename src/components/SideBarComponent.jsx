@@ -53,6 +53,7 @@ async function SideBarComponent() {
           })}
         </section>
         <FavoriteSideBarComponent
+        workspace = {workspace}
         />
         <div  className= "fixed bottom-10">
         <LogoutButton/>

@@ -6,9 +6,11 @@ import React, { useState } from "react";
 function FavoriteComponent() {
   const [isFavorite, setIsFavorite] = useState(false);
   const pathname = usePathname();
+  const id = pathname.split("/")[2];
   const handleClick = async () => {
     setIsFavorite((prev) => !prev);
-    const fav = await UpdateFavoriteAction()
+    await UpdateFavoriteAction(id , isFavorite );
+    
   };
 
   return (
