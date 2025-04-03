@@ -16,7 +16,7 @@ import ModalUpdateTaskComponent from "./ModalUpdateTaskComponent";
          <div key={task.id} className="border border-gray-300 rounded-xl mt-8 w-90">
           <div className="p-5">
             <div className="flex justify-between">
-              <h2 className="text-xl font-bold capitalize">HRD Design</h2>
+              <h2 className="text-xl font-bold capitalize">{task.taskTitle}</h2>
               <ModalUpdateTaskComponent />
             </div>
       

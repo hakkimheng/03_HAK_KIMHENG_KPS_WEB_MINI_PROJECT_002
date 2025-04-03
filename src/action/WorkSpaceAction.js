@@ -31,11 +31,11 @@ export const UpdateWorkSpaceAction = async (workspace, id) => {
     return { success: true, data: newWorkspace };
 }
 
-export const UpdateFavoriteAction = async (body) =>{
+export const UpdateFavoriteAction = async (body ,workId ,favorite) =>{
     const workspaces = {
+        "workspaceId": workId,
+        "workspaceName": body.workspaceName,
         "isFavorite": favorite,
-        "workspaceName": body,
-        "workspaceId": workId
     }
     const newFavorite = await UpdateFavoriteService(workspaces);
     revalidateTag("getallworkspace");

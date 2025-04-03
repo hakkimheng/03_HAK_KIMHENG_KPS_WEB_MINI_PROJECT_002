@@ -1,13 +1,19 @@
 "use client"
+import { UpdateFavoriteAction } from '@/action/WorkSpaceAction';
 import { usePathname, useSearchParams } from 'next/navigation';
 import React from 'react'
 
-function FavoriteSideBarComponent( ) {
+function FavoriteSideBarComponent() {
     const pathname = usePathname();
     const workspaceId = pathname.split('/')[2];
     const searchParams = useSearchParams();
     const initialFavorite = searchParams.get("favorite") === "true";
     console.log(initialFavorite);
+    
+    const data = async () =>{
+        const {workspace} = await UpdateFavoriteAction(workspaceId, initialFavorite);
+        return workspace;
+    }
     
   return (
     <>

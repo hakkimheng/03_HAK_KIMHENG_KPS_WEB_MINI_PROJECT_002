@@ -1,8 +1,7 @@
-"use client"; // Required since we're using hooks (useForm)
+"use client";
 
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -23,19 +22,14 @@ export function ModalCreateWorkSpaceComponent() {
     formState: { errors },
   } = useForm();
 
-  // Handle form submission
   const onSubmit = async (data) => {
     await CreateNewWorkSpaceAction(data.workspaceName);
-
-    console.log("typw :",type);
-    
   };
 
   return (
     <AlertDialog>
-      {/* Trigger Button */}
       <AlertDialogTrigger asChild>
-          <button>
+        <button>
           <svg
             width="25"
             height="25"
@@ -72,18 +66,14 @@ export function ModalCreateWorkSpaceComponent() {
               strokeLinejoin="round"
             />
           </svg>
-        </button> 
- 
+        </button>
       </AlertDialogTrigger>
 
-      {/* Modal Content */}
       <AlertDialogContent className="bg-white">
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-7">
           <AlertDialogHeader>
             <section className="flex justify-between items-center">
-              <AlertDialogTitle>
-              Create New Workspace
-                </AlertDialogTitle>
+              <AlertDialogTitle>Create New Workspace</AlertDialogTitle>
               <AlertDialogCancel className="text-red-500 border-none bg-transparent hover:bg-gray-100">
                 X
               </AlertDialogCancel>
@@ -110,7 +100,6 @@ export function ModalCreateWorkSpaceComponent() {
               type="submit"
               className="bg-gray-600 hover:bg-gray-900 text-white"
             >
-
               Create
             </Button>
           </AlertDialogFooter>

@@ -18,6 +18,7 @@ import { Button } from "./ui/button";
 import { Ellipsis } from "lucide-react";
 
 export function ModalUpdateWorkSpaceComponent( { workId } ) {
+
   const {
     handleSubmit,
     register,

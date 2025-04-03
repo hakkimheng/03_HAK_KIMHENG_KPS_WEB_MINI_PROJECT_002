@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   AlertDialog,
@@ -11,7 +12,14 @@ import {
 } from "@/components/ui/alert-dialog";
 
 import { Input } from "./ui/input";
-async function CreateWorkSpace() {
+import { Controller, useForm } from "react-hook-form";
+import DropDownTagComponent from "./DropDownTagComponent";
+import { DatePickerComponent } from "./DatePickerComponent";
+function CreateWorkSpace() {
+  const { handleSubmit, register, control } = useForm();
+  const onSubmit = (data) => {
+    console.log("Selected:", data);
+  };
 
   return (
     <AlertDialog>
@@ -64,31 +72,59 @@ async function CreateWorkSpace() {
               <AlertDialogCancel className="text-red-500">X</AlertDialogCancel>
             </section>
             <div className="text-gray-600">
-                        <form className="flex flex-col gap-5 pb-5">
-                            <div className="flex flex-col gap-2">
-                                <label htmlFor="name">name</label>
-                                <Input type="text" placeholder="Please typ your work space name" 
-                                
-                                />
-                            </div>
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="flex flex-col gap-5 pb-5"
+              >
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="name" className="font-bold">
+                    Title
+                  </label>
+                  <Input
+                    type="text"
+                    placeholder="Please typ your work space name"
+                    {...register("taskTitle")}
+                  />
+                </div>
 
-                            <div className="flex flex-col gap-2">
-                                <label htmlFor="name">name</label>
-                                <Input type="text" placeholder="Please typ your work space name" />
-                            </div>
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="name" className="font-bold">
+                    Description
+                  </label>
+                  <Input
+                    type="text"
+                    placeholder="Please typ your work space name"
+                    {...register("taskDetails")}
+                  />
+                </div>
 
-                            <div className="flex flex-col gap-2">
-                                <label htmlFor="name">name</label>
-                                <Input type="text" placeholder="Please typ your work space name" />
-                            </div>
-
-                            <div className="flex flex-col gap-2">
-                                <label htmlFor="name">name</label>
-                                <Input type="text" placeholder="Please typ your work space name" />
-                            </div>
-
-                        </form>
-                    </div>
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="name" className="font-bold">
+                    Tags
+                  </label>
+                  <div>
+                    <DropDownTagComponent />
+                  </div>
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="name" className="font-bold">
+                    Date
+                  </label>
+                  <div>
+                    <Controller
+                      name="endDate"
+                      control={control}
+                      render={({ field }) => (
+                        <DatePickerComponent
+                          date={field.value}
+                          setDate={field.onChange}
+                        />
+                      )}
+                    />
+                  </div>
+                </div>
+              </form>
+            </div>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogAction className="bg-blue-600 font-bold hover:bg-blue-900 w-full  text-white">

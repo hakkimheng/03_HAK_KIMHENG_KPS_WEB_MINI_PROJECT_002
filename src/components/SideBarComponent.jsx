@@ -51,7 +51,6 @@ async function SideBarComponent() {
           })}
         </section>
           <FavoriteSideBarComponent
-          workspace = {workspace}
           />
       </section>
     </>
