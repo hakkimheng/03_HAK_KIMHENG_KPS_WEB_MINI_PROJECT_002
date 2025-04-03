@@ -14,12 +14,16 @@ import {
 import { Button } from "@/components/ui/button";
 import { Ellipsis } from "lucide-react"; // Assuming Ellipsis is an icon
 import { Input } from "./ui/input";
+import { usePathname } from "next/navigation";
 
 const ModalUpdateTaskComponent = () => {
     const [openParent, setOpenParent] = useState(false);
     const [openUpdate, setOpenUpdate] = useState(false);
     const [openDelete, setOpenDelete] = useState(false);
-
+    const pathname = usePathname();
+    const taskId = pathname.split('/').pop();
+    console.log(taskId);
+    
     const handleUpdateTask = () => {
         setOpenParent(false); // Close first modal
         setOpenUpdate(true); // Open second modal after a small delay

@@ -1,7 +1,7 @@
+import LogoComponent from "@/components/LogoComponent";
+import NavBarComponent from "@/components/NavBarComponent";
 import SideBarComponent from "@/components/SideBarComponent";
 import "../globals.css";
-import LogoComponent from "@/components/LogoComponent";
-import { Provider } from "@/context/provider";
 
 export const metadata = {
   title: {
@@ -14,9 +14,8 @@ export const metadata = {
 export default function AuthenticationLayout({ children }) {
   return (
     <main>
-      <Provider>
       {children}
-      </Provider>
-      </main>
+    </main>
+
   );
 }

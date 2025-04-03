@@ -1,7 +1,9 @@
 import React from 'react'
 import CardComponent from './CardComponent'
+import { getAllTaskAction } from '@/action/WorkSpaceAction'
 
-function FinishedCardComponent() {
+async function FinishedCardComponent({workSpaceId}) {
+  const {data} = await getAllTaskAction(workSpaceId);
   return (
     <section>
     <section>
@@ -9,7 +11,15 @@ function FinishedCardComponent() {
         <h2 className="text-xl">Finished</h2>
         <hr />
       </div>
-      <CardComponent/>
+      {
+                data.map((task) => {
+                        if(task.status === 'FINISHED'){
+                           return  <CardComponent
+                           task={task}
+                           />
+                        }
+                })
+            }
     </section>
   </section>
   )

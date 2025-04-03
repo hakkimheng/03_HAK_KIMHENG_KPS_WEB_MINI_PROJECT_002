@@ -7,13 +7,12 @@ import {
   AlertDialogTitle,
   AlertDialogCancel,
   AlertDialogAction,
-  AlertDialogDescription,
   AlertDialogFooter,
 } from "@/components/ui/alert-dialog";
 
 import { Input } from "./ui/input";
+async function CreateWorkSpace() {
 
-function CreateWorkSpace() {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -57,7 +56,6 @@ function CreateWorkSpace() {
           <span className="text-white font-bold">New Tasks</span>
         </button>
       </AlertDialogTrigger>
-
       <AlertDialogContent className=" bg-white">
         <section className="flex flex-col gap-7">
           <AlertDialogHeader>
@@ -66,10 +64,12 @@ function CreateWorkSpace() {
               <AlertDialogCancel className="text-red-500">X</AlertDialogCancel>
             </section>
             <div className="text-gray-600">
-                        <div className="flex flex-col gap-5 pb-5">
+                        <form className="flex flex-col gap-5 pb-5">
                             <div className="flex flex-col gap-2">
                                 <label htmlFor="name">name</label>
-                                <Input type="text" placeholder="Please typ your work space name" />
+                                <Input type="text" placeholder="Please typ your work space name" 
+                                
+                                />
                             </div>
 
                             <div className="flex flex-col gap-2">
@@ -87,7 +87,7 @@ function CreateWorkSpace() {
                                 <Input type="text" placeholder="Please typ your work space name" />
                             </div>
 
-                        </div>
+                        </form>
                     </div>
           </AlertDialogHeader>
           <AlertDialogFooter>

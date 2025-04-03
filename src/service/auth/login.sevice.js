@@ -7,7 +7,7 @@ export const loginService = async (user) => {
       headers: {
         accept: "*/*",
         "Content-Type": "application/json",
-      },
+      },  
       body: JSON.stringify(user),
     });
     const data = await res.json();
@@ -17,7 +17,7 @@ export const loginService = async (user) => {
   }
 };
 
-export const registerService = async (user) => {
+export const RegisterService = async (user) => {
   try {
     const res = await fetch(`${baseUrl}/auth/register`, {
       method: "POST",

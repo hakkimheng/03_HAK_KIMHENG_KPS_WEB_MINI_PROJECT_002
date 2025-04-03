@@ -7,43 +7,35 @@ export const authOptions = {
     CredentialsProvider({
       name: "Credentials",
       async authorize(data) {
-        try {
-          const userData = {
-            email: data?.email,
-            password: data?.password,
-          };
-          console.log(userData);
-          const userInfo = await loginService(userData);
-          if (!userInfo || userInfo?.status === "INTERNAL_SERVER_ERROR") {
-            throw new Error(userInfo?.detail || "Invalid credentials");
-          }
-          console.log(userInfo?.payload.token);
-          
-          return userInfo?.payload.token;
+        const userData = {
+          email: data?.email,
+          password: data?.password,
+        };
 
-          
-        } catch (error) {
-          throw new Error(error.message || "Something went wrong");
+        const userInfo = await loginService(userData);
+        if (!userInfo || userInfo?.status === "INTERNAL_SERVER_ERROR" || !userInfo?.payload?.token) {
+          throw new Error(userInfo?.detail || "Invalid credentials");
         }
+        return { token: userInfo.payload.token }; // Return token in an object
       },
     }),
   ],
-  
   secret: process.env.NEXTAUTH_SECRET,
-  
   session: {
     strategy: "jwt",
   },
-
   pages: {
     signIn: "/login",
   },
   callbacks: {
     async jwt({ token, user }) {
-      return { ...token, ...user };
+      if (user) {
+        token.token = user.token; // Store the token
+      }
+      return token;
     },
     async session({ session, token }) {
-      session.user = token;
+      session.user = { ...session.user, token: token.token }; // Add token to user object
       return session;
     },
   },

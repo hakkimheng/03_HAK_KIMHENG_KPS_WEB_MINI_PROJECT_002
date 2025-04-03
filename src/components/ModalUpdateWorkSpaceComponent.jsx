@@ -13,10 +13,11 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Input } from "./ui/input";
 import { useForm } from "react-hook-form";
-import { CreateNewWorkSpaceAction } from "@/action/WorkSpaceAction";
+import {  UpdateWorkSpaceAction } from "@/action/WorkSpaceAction";
 import { Button } from "./ui/button";
+import { Ellipsis } from "lucide-react";
 
-export function ModalCreateWorkSpaceComponent() {
+export function ModalUpdateWorkSpaceComponent( { workId } ) {
   const {
     handleSubmit,
     register,
@@ -25,55 +26,15 @@ export function ModalCreateWorkSpaceComponent() {
 
   // Handle form submission
   const onSubmit = async (data) => {
-    await CreateNewWorkSpaceAction(data.workspaceName);
-
-    console.log("typw :",type);
-    
+    await UpdateWorkSpaceAction(data.workspaceName , workId);
   };
-
   return (
     <AlertDialog>
       {/* Trigger Button */}
       <AlertDialogTrigger asChild>
           <button>
-          <svg
-            width="25"
-            height="25"
-            viewBox="0 0 25 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M15.53 12H16.54"
-              stroke="#94A3B8"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M8.54004 12H12.35"
-              stroke="#94A3B8"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M12.54 16V8"
-              stroke="#94A3B8"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M2.54004 13.04V15C2.54004 20 4.54004 22 9.54004 22H15.54C20.54 22 22.54 20 22.54 15V9C22.54 4 20.54 2 15.54 2H9.54004C4.54004 2 2.54004 4 2.54004 9"
-              stroke="#94A3B8"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+          <Ellipsis/>
         </button> 
- 
       </AlertDialogTrigger>
 
       {/* Modal Content */}
@@ -82,7 +43,7 @@ export function ModalCreateWorkSpaceComponent() {
           <AlertDialogHeader>
             <section className="flex justify-between items-center">
               <AlertDialogTitle>
-              Create New Workspace
+                Update WorkSpace
                 </AlertDialogTitle>
               <AlertDialogCancel className="text-red-500 border-none bg-transparent hover:bg-gray-100">
                 X
@@ -110,8 +71,7 @@ export function ModalCreateWorkSpaceComponent() {
               type="submit"
               className="bg-gray-600 hover:bg-gray-900 text-white"
             >
-
-              Create
+              Update
             </Button>
           </AlertDialogFooter>
         </form>

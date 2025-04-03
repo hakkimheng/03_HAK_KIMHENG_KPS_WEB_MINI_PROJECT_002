@@ -1,24 +1,59 @@
+
 import LogoComponent from "@/components/LogoComponent";
 import NavBarComponent from "@/components/NavBarComponent";
 import SideBarComponent from "@/components/SideBarComponent";
 import CreateWorkSpace from "@/components/CreateTaskComponent";
-import React from 'react'
+import FinishedCardComponent from "@/components/FinishedCardComponent";
+import InprocessCardConponent from "@/components/InprocessCardConponent";
 
-function WorkIdPage() {
+import NonStartedCardComponent from "@/components/NonStartedCardComponent";
+
+import React from 'react'
+import { getAllWorkSpaceAction } from "@/action/WorkSpaceAction";
+import FavoriteComponent from "@/components/FavoriteComponent";
+
+async function WorkSpaceShowPage( { params }) {
+   const workSpaceId = params.workId;
+   const {workspace} = await getAllWorkSpaceAction();
+   console.log(workspace);
+   
   return (
     <>
      <section className="flex justify-around pt-10">
       <section className="flex flex-col gap-15">
         <LogoComponent />
-        <SideBarComponent />
+        <SideBarComponent 
+        />
       </section>
       <section className="flex flex-col gap-10">
         <section className="flex flex-col gap-3">
           <NavBarComponent />
           <hr />
         </section>
+        <section className="flex justify-between">
+            <h2 className="font-bold text-2xl">
+              {workspace.map((workname) => (
+                workname.workspaceId === workSpaceId ? workname.workspaceName : ''
+              ))}
+            </h2>
+            <FavoriteComponent/>
+          </section>
+
           <section className="flex gap-20 justify-center flex-wrap">
-           <div className="w-300">
+           <div className="w-90">
+           <NonStartedCardComponent
+           workSpaceId = {workSpaceId}
+           />
+           </div>
+           <div className="w-90">
+           <InprocessCardConponent
+            workSpaceId = {workSpaceId}
+           />
+           </div>
+           <div className="w-90">
+           <FinishedCardComponent 
+            workSpaceId = {workSpaceId}
+           />
            </div>
           </section>
           <div className="fixed bottom-10 right-10">
@@ -58,12 +93,9 @@ function WorkIdPage() {
       </section>
       
     </section>
-    
-    {/* ------------------- */}
 
-       
     </>
   )
 }
 
-export default WorkIdPage
+export default WorkSpaceShowPage;

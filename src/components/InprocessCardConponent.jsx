@@ -1,6 +1,8 @@
 import React from 'react'
 import CardComponent from './CardComponent'
-function InprocessCardConponent() {
+import { getAllTaskAction } from '@/action/WorkSpaceAction'
+async function InprocessCardConponent( {workSpaceId}) {
+  const { data } = await getAllTaskAction(workSpaceId);
   return (
     <section>
     <section>
@@ -8,7 +10,15 @@ function InprocessCardConponent() {
         <h2 className="text-xl">In Progress</h2>
         <hr />
       </div>
-      <CardComponent />
+      {
+                data.map((task) => {
+                        if(task.status === 'IN_PROGRESS'){
+                           return  <CardComponent
+                           task={task}
+                           />
+                        }
+                })
+            }
     </section>
   </section>
   )

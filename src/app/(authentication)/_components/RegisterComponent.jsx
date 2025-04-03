@@ -1,14 +1,26 @@
 "use client";
+import { RegisterAction } from "@/action/RegisterAction";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { KeyRound, Mail, UserRound } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
+import { useForm } from "react-hook-form";
+
 
 export default function RegisterComponent() {
+  const router = useRouter();
+  const {handleSubmit ,register} = useForm();
+  const onSubmit = async (data) => {
+    const res = await RegisterAction(data);
+    if (res?.ok) {
+      router.push("/login");
+    }
+  }
   return (
-    <form className="space-y-6">
+    <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
       {/* username */}
       <div>
         <Label
@@ -22,6 +34,7 @@ export default function RegisterComponent() {
           type="text"
           placeholder="Please type your username"
           className={` bg-ghost-white py-2.5 px-4 rounded-lg w-full text-light-steel-blue/90`}
+          {...register("username")}
         />
       </div>
 
@@ -38,6 +51,7 @@ export default function RegisterComponent() {
           type="text"
           placeholder="Please type your email"
           className={`bg-ghost-white py-2.5 px-4 rounded-lg w-full text-light-steel-blue/90`}
+          {...register("email")}
         />
       </div>
 
@@ -54,6 +68,7 @@ export default function RegisterComponent() {
           type="password"
           placeholder="Please type your password"
           className={`bg-ghost-white py-2.5 px-4 rounded-lg w-full text-light-steel-blue/90`}
+        {...register("password")}
         />
       </div>
 

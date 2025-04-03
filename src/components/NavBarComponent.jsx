@@ -1,6 +1,11 @@
+
+import { getUserInfomation } from "@/action/GetUserInfomationAction";
+import { getAllWorkSpaceAction } from "@/action/WorkSpaceAction";
 import React from "react";
 
-function NavBarComponent() {
+const NavBarComponent = async () => {
+  const {user} = await getUserInfomation();
+  const { workspace } = await getAllWorkSpaceAction();
   return (
     <>
       <section className="flex justify-between">
@@ -24,7 +29,8 @@ function NavBarComponent() {
               />
             </svg>
           </span>
-          <h2>HRD Design</h2>
+          <h2 className="text-black">
+            {workspace.workspaceName}</h2>
         </div>
         <div className="flex gap-5">
           <span className="self-center">
@@ -43,19 +49,22 @@ function NavBarComponent() {
               />
             </svg>
           </span>
-          <img
-            className="rounded-full h-10"
-            src="https://i.pinimg.com/736x/f7/b0/d5/f7b0d524b0e150b9cbae3cd1ed4c7a74.jpg"
-            alt="profile"
-          />
-          <div className="flex flex-col">
-            <h2>Monster</h2>
-            <p className="text-green-700">Hakkimhengg@gmail.com</p>
-          </div>
+                <div className="flex gap-3">
+                <img
+                  className="rounded-full h-10"
+                  src={user.profile}
+                  alt="profile"
+                />
+                <div className="flex flex-col">
+                  <h2>{user.username}</h2>
+                  <p className="text-green-700">{user.email}</p>
+                </div>
+              </div>
+
         </div>
       </section>
     </>
   );
-}
+};
 
 export default NavBarComponent;
