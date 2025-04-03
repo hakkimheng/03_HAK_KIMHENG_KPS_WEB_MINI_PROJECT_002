@@ -7,20 +7,17 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogCancel,
-  AlertDialogAction,
-  AlertDialogFooter,
 } from "@/components/ui/alert-dialog";
 
-import { Input } from "./ui/input";
-import { Controller, useForm } from "react-hook-form";
-import DropDownTagComponent from "./DropDownTagComponent";
-import { DatePickerComponent } from "./DatePickerComponent";
-function CreateWorkSpace() {
-  const { handleSubmit, register, control } = useForm();
-  const onSubmit = (data) => {
-    console.log("Selected:", data);
+import { usePathname } from "next/navigation";
+import { CreateTaskAction, getAllTaskAction } from "@/action/WorkSpaceAction";
+import TaskForm from "./TaskFormComponent";
+function CreateTaskComponent() {
+  const pathname = usePathname();
+  const id = pathname.split("/")[2];
+  const hadleCreateTask = async (data) => {
+    await CreateTaskAction(data, id);
   };
-
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -61,80 +58,24 @@ function CreateWorkSpace() {
               strokeLinejoin="round"
             />
           </svg>
-          <span className="text-white font-bold">New Tasks</span>
+          <span className="text-white font-bold">New Task</span>
         </button>
       </AlertDialogTrigger>
-      <AlertDialogContent className=" bg-white">
+      <AlertDialogContent className="bg-white">
         <section className="flex flex-col gap-7">
           <AlertDialogHeader>
-            <section className="flex justify-between -pt-5">
-              <AlertDialogTitle>Create New Task </AlertDialogTitle>
+            <section className="flex justify-between">
+              <AlertDialogTitle>Create New Task</AlertDialogTitle>
               <AlertDialogCancel className="text-red-500">X</AlertDialogCancel>
             </section>
             <div className="text-gray-600">
-              <form
-                onSubmit={handleSubmit(onSubmit)}
-                className="flex flex-col gap-5 pb-5"
-              >
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="name" className="font-bold">
-                    Title
-                  </label>
-                  <Input
-                    type="text"
-                    placeholder="Please typ your work space name"
-                    {...register("taskTitle")}
-                  />
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="name" className="font-bold">
-                    Description
-                  </label>
-                  <Input
-                    type="text"
-                    placeholder="Please typ your work space name"
-                    {...register("taskDetails")}
-                  />
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="name" className="font-bold">
-                    Tags
-                  </label>
-                  <div>
-                    <DropDownTagComponent />
-                  </div>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="name" className="font-bold">
-                    Date
-                  </label>
-                  <div>
-                    <Controller
-                      name="endDate"
-                      control={control}
-                      render={({ field }) => (
-                        <DatePickerComponent
-                          date={field.value}
-                          setDate={field.onChange}
-                        />
-                      )}
-                    />
-                  </div>
-                </div>
-              </form>
+              <TaskForm onSubmit={hadleCreateTask} buttonLabel="Create" />
             </div>
           </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogAction className="bg-blue-600 font-bold hover:bg-blue-900 w-full  text-white">
-              Create
-            </AlertDialogAction>
-          </AlertDialogFooter>
         </section>
       </AlertDialogContent>
     </AlertDialog>
   );
 }
 
-export default CreateWorkSpace;
+export default CreateTaskComponent;

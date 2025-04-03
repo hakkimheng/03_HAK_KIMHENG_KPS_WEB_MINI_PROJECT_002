@@ -1,18 +1,16 @@
 import { useState } from "react";
 
-const DropDownTagComponent = () => {
+const DropDownTagComponent = ({ value, onChange }) => {
   const [open, setOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState(value || null);
   const options = ["DESIGN", "HOMEWORK", "ASSIGNMENT", "DEPLOYMENT", "GIT", "DATABASE", "MINI_PROJECT", "DOCUMENTATION", "FEATURE"];
-
   const selectOption = (option) => {
     setSelectedOption(option);
+    onChange(option);
     setOpen(false);
   };
-
   return (
     <div className="max-w-md mx-auto relative">
-     
       <button
         type="button"
         onClick={() => setOpen(!open)}

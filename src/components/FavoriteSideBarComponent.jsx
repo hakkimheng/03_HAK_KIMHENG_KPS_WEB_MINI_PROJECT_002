@@ -8,7 +8,6 @@ function FavoriteSideBarComponent() {
     const workspaceId = pathname.split('/')[2];
     const searchParams = useSearchParams();
     const initialFavorite = searchParams.get("favorite") === "true";
-    console.log(initialFavorite);
     
     const data = async () =>{
         const {workspace} = await UpdateFavoriteAction(workspaceId, initialFavorite);

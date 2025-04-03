@@ -1,10 +1,10 @@
 import LogoComponent from "@/components/LogoComponent";
 import NavBarComponent from "@/components/NavBarComponent";
 import SideBarComponent from "@/components/SideBarComponent";
-import CreateWorkSpace from "@/components/CreateTaskComponent";
+import CreateTaskComponent from "@/components/CreateTaskComponent";
 import React from 'react'
 
-function WorkIdPage() {
+async function WorkIdPage() {
   return (
     <>
      <section className="flex justify-around pt-10">
@@ -25,7 +25,7 @@ function WorkIdPage() {
             
             <div className="flex gap-10 items-center">
             
-            <CreateWorkSpace />
+            <CreateTaskComponent />
             <div className="bg-white rounded-full p-4  shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
                 <svg
                   width="18"

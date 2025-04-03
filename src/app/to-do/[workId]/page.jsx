@@ -15,7 +15,6 @@ import FavoriteComponent from "@/components/FavoriteComponent";
 async function WorkSpaceShowPage( { params }) {
    const workSpaceId = params.workId;
    const {workspace} = await getAllWorkSpaceAction();
-   console.log(workspace);
    
   return (
     <>

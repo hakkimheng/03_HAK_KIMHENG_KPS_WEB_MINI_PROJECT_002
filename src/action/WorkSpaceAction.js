@@ -1,6 +1,6 @@
 "use server";
 
-import { getAllTaskService , getAllWorkspaceService, InsertWorkSpaceService, UpdateWorkSpaceService } from "@/service/Workspace.service";
+import { CreateTaskService, DeleteTaskService, getAllTaskService , getAllWorkspaceService, InsertWorkSpaceService, UpdateTaskService, UpdateWorkSpaceService } from "@/service/service";
 import { revalidateTag } from "next/cache";
 
 export const getAllWorkSpaceAction = async () => {
@@ -40,4 +40,38 @@ export const UpdateFavoriteAction = async (body ,workId ,favorite) =>{
     const newFavorite = await UpdateFavoriteService(workspaces);
     revalidateTag("getallworkspace");
     return { success: true, data: newFavorite };
+}
+export const CreateTaskAction = async (body, workId) =>{
+    const tasks = {
+        "taskTitle": body.taskTitle,
+        "taskDetails": body.taskDetails,
+        "tag": body.tags,
+        "endDate": body.endDate.toISOString(),
+    }
+    const newTask = await CreateTaskService(tasks, workId);
+    revalidateTag("getAllTask");
+    return { success: true, data: newTask };
+}
+export const DeleteTaskAction = async (taskId, workId) =>{
+    const newTask = await DeleteTaskService(taskId, workId);
+    revalidateTag("getAllTask");
+    return { success: true, data: newTask };
+}
+
+export const UpdateStatusTaskAction = async (status, taskId, workId) =>{
+    const newTask = await UpdateStatusTaskService(status, taskId, workId);
+    revalidateTag("getAllTask");
+    return { success: true, data: newTask };
+}
+
+export const UpdateTaskAction = async (body ,taskId, workId) =>{
+    const tasks = {
+        "taskTitle": body.taskTitle,
+        "taskDetails": body.taskDetails,
+        "tag": body.tags,
+        "endDate": body.endDate.toISOString(),
+    }
+    const newTask = await UpdateTaskService(tasks ,taskId,workId )
+    revalidateTag("getAllTask");
+    return { success: true, data: newTask };
 }
