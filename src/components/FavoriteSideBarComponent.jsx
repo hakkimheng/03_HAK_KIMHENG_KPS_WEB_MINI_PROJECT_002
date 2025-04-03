@@ -4,10 +4,11 @@ import React from 'react'
 
 async function FavoriteSideBarComponent({ workspace }) {
 
-    const tasks = await getAllTaskAction(workspace.workspaceId);
-    const tasksArray = tasks.tasks || []; // 'tasks' is the array inside the object
-
-    const favoriteTasks = Array.isArray(tasksArray) ? tasksArray.filter(task => task.status === true) : [];
+    const favorite = workspace.map((item)=>{
+        if(item.isFavorite == true){
+            return item
+        }
+    })
     return (
         <>
             <div className='flex flex-col gap-5'>
@@ -32,9 +33,9 @@ async function FavoriteSideBarComponent({ workspace }) {
                     </button>
                 </div>
                 <div>
-                    {favoriteTasks.length > 0 ? (
-                        favoriteTasks.map(task => (
-                            <p key={task.id} className="text-gray-600">{task.taskTitle}</p>
+                    {favorite.length > 0 ? (
+                        favorite.map(task => (
+                            <p className="text-gray-600">{workspace.workspaceName}</p>
                         ))
                     ) : (
                         <p className="text-gray-400">No favorite tasks found.</p>
